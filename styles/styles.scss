@@ -50,7 +50,7 @@
 }
 
 .body {
-    margin: 15px 0px 15px 0px;
+    margin: 30px 0px 15px 0px;
     .active {
         text-decoration: underline;
     }
@@ -62,6 +62,7 @@
     }
     .container-fluid {
         margin-top: 15px;
+        position: relative;
         .search {
             margin-top: 10px;
             input {
@@ -72,15 +73,89 @@
                 border-radius: 5px;
             }
             button {
+                margin-right: 10px;
                 height: 45px;
                 font-size: 30px;
                 padding: 5px;
                 border-radius: 5px;
             }
         }
+        .item-num {
+            position: absolute;
+            right: 20px;
+            font-size: 25px;
+            font-weight: bold;
+        }
         .nft-list {
-            margin-top: 10px;
-            background-color: #27ae60;
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-auto-rows: 360px;
+            grid-gap: 15px;
+            grid-auto-flow: dense;
+            .nft-container {
+                width: 300px;
+                height: 350px;
+                border-width: 2px;
+                border-style: solid;
+                border-color: #000000;
+                cursor: pointer;
+                .image-container {
+                    height: 300px;
+                    position: relative;
+                    background-color: #000000;
+                }
+                .name {
+                    padding: 10px;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+    .activity-container {
+        margin-top: 15px;
+        .notification {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-style: italic;
+        }
+        .action-container {
+            margin-top: 20px;
+            td {
+                padding-top: 15px;
+                text-align: center;
+                font-size: 25px;
+                font-weight: 400;
+                a {
+                    color: #1a24b1;
+                    text-decoration: underline;
+                }
+            }
+            .action {
+                width: 5%;
+            }
+            .item {
+                width: 5%;
+            }
+            .price {
+                width: 7%;
+            }
+            .quantity {
+                width: 7%;
+            }
+            .from {
+                width: 32.5%;
+            }
+            .to {
+                width: 32.5%;
+            }
+            .time {
+                width: 16%;
+            }
+        }
+        th {
+            font-size: 30px;
         }
     }
 }

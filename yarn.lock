@@ -1747,6 +1747,11 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+fromnow@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/fromnow/-/fromnow-3.0.1.tgz#ffa46a8e233e05721ba4c1ae269e92123f6510d4"
+  integrity sha512-yiLiFONFTvJlP4NaaYcJclCExN4wa2EbWJ9cCXqKcFdxkBmiqlDhzGb/yJ8HtvhNh9td7AUwyCW9w9RrLi429A==
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
