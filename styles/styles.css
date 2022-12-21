@@ -17,6 +17,7 @@
   --color-grey-4: #454e56;
   --color-grey-5: #2a2e35;
   --color-grey-6: #12181b;
+  --color-link: rgb(32, 129, 226);
   --br-sm-2: 14px;
   --box-shadow-1: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
@@ -29,6 +30,10 @@
 
 .container {
   margin: 0px 3% 0px 3%;
+}
+
+.nft-detail-container {
+  margin: 0px 10% 0px 10%;
 }
 
 .general-info {
@@ -113,51 +118,151 @@
   padding: 10px;
   font-size: 25px;
 }
-.body .activity-container {
+
+.activity-container {
   margin-top: 15px;
 }
-.body .activity-container .notification {
+.activity-container table {
+  width: 100%;
+  padding: 20px 0 20px 0;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 10px;
+  border-color: var(--color-link);
+}
+.activity-container .notification {
   margin-bottom: 10px;
   font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
 }
-.body .activity-container .action-container {
+.activity-container .action-container {
   margin-top: 20px;
 }
-.body .activity-container .action-container td {
+.activity-container .action-container td {
   padding-top: 15px;
   text-align: center;
   font-size: 25px;
   font-weight: 400;
 }
-.body .activity-container .action-container td a {
-  color: #1a24b1;
+.activity-container .action-container td a {
+  color: var(--color-link);
   text-decoration: underline;
 }
-.body .activity-container .action-container .action {
-  width: 5%;
+.activity-container .action-container .action {
+  width: 6%;
 }
-.body .activity-container .action-container .item {
-  width: 5%;
+.activity-container .action-container .item {
+  width: 6%;
 }
-.body .activity-container .action-container .price {
+.activity-container .action-container .price {
   width: 7%;
 }
-.body .activity-container .action-container .quantity {
+.activity-container .action-container .quantity {
   width: 7%;
 }
-.body .activity-container .action-container .from {
-  width: 32.5%;
+.activity-container .action-container .from {
+  width: 30.5%;
 }
-.body .activity-container .action-container .to {
-  width: 32.5%;
+.activity-container .action-container .to {
+  width: 30.5%;
 }
-.body .activity-container .action-container .time {
-  width: 16%;
+.activity-container .action-container .time {
+  width: 13%;
 }
-.body .activity-container th {
+.activity-container th {
   font-size: 30px;
+}
+
+.metadata-container {
+  padding-top: 100px;
+  display: flex;
+}
+.metadata-container .left {
+  width: 50%;
+  aspect-ratio: 1/1;
+}
+.metadata-container .left .image {
+  aspect-ratio: 1/1;
+  position: relative;
+}
+.metadata-container .right {
+  width: 50%;
+  padding-left: 50px;
+}
+.metadata-container .right .collection-name {
+  font-size: 35px;
+  text-decoration: underline;
+  color: var(--color-link);
+}
+.metadata-container .right .nft-name {
+  margin-top: 5px;
+  font-size: 42px;
+  font-weight: bold;
+}
+.metadata-container .right .owner {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.metadata-container .right .owner a {
+  color: var(--color-link);
+}
+.metadata-container .right .description {
+  margin-top: 30px;
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 15px;
+  position: relative;
+}
+.metadata-container .right .description h1 {
+  margin: 10px;
+}
+.metadata-container .right .description p {
+  margin: 10px;
+  font-size: 23px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.metadata-container .right .attributes-text {
+  margin-top: 30px;
+  font-size: 40px;
+  font-weight: bold;
+}
+.metadata-container .right .attributes {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  row-gap: 20px;
+}
+.metadata-container .right .attributes .attribute {
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 10px;
+  border-color: var(--color-link);
+}
+.metadata-container .right .attributes .attribute .trait {
+  text-align: center;
+  font-size: 23px;
+  font-weight: bold;
+  color: var(--color-link);
+  padding: 5px;
+}
+.metadata-container .right .attributes .attribute .value {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+.metadata-container .right .attributes .attribute .rate {
+  text-align: center;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.nft-history-container {
+  padding: 50px 0 50px 0;
 }
 
 .danger {

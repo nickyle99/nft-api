@@ -1,10 +1,10 @@
 import { NextPage } from "next"
 import { useState, useEffect } from "react"
 import Moralis from "moralis"
-import { EvmChain, EvmNft } from "@moralisweb3/common-evm-utils"
+import { EvmChain } from "@moralisweb3/common-evm-utils"
 import config from "../../../../config.json"
 import NftItem from "../../../../src/modules/nftItem"
-import CollectionAction from "../../../../src/modules/collectionAction"
+import Activity from "../../../../src/modules/activity"
 
 // active moralis module
 Moralis.start({
@@ -66,7 +66,6 @@ const CollectionPage: NextPage = () => {
                     chain: chain,
                 })
                 setActivity(response.result)
-                console.log(response.result)
             }
 
             getNfts()
@@ -160,8 +159,13 @@ const CollectionPage: NextPage = () => {
                                     return (
                                         <NftItem
                                             key={nft._data == undefined ? "" : nft._data.tokenId}
-                                            name={nft._data?.metadata.name}
-                                            image={nft._data?.metadata.image}
+                                            name={nft.metadata?.name}
+                                            image={nft.metadata?.image}
+                                            network={network}
+                                            address={address}
+                                            tokenId={
+                                                nft._data == undefined ? "" : nft._data.tokenId
+                                            }
                                         />
                                     )
                                 })}
@@ -185,47 +189,40 @@ const CollectionPage: NextPage = () => {
                                     </tr>
                                     {activity.map((action) => {
                                         return (
-                                            <CollectionAction
+                                            <Activity
                                                 key={
                                                     action._data == undefined
                                                         ? ""
-                                                        : action._data.blockHash +
-                                                          action._data.logIndex
+                                                        : action.blockHash + action.logIndex
                                                 }
                                                 tokenId={
-                                                    action._data == undefined
-                                                        ? ""
-                                                        : action._data.tokenId
+                                                    action._data == undefined ? "" : action.tokenId
                                                 }
                                                 fromAddress={
                                                     action._data == undefined
                                                         ? ""
-                                                        : action._data.fromAddress._value
+                                                        : action.fromAddress._value
                                                 }
                                                 toAddress={
                                                     action._data == undefined
                                                         ? ""
-                                                        : action._data.toAddress._value
+                                                        : action.toAddress._value
                                                 }
                                                 quantity={
-                                                    action._data == undefined
-                                                        ? ""
-                                                        : action._data.amount
+                                                    action._data == undefined ? "" : action.amount
                                                 }
                                                 value={
-                                                    action._data == undefined
-                                                        ? ""
-                                                        : action._data.value
+                                                    action._data == undefined ? "" : action.value
                                                 }
                                                 blockTimestamp={
                                                     action._data == undefined
                                                         ? ""
-                                                        : action._data.blockTimestamp
+                                                        : action.blockTimestamp
                                                 }
                                                 transactionHash={
                                                     action._data == undefined
                                                         ? ""
-                                                        : action._data.transactionHash
+                                                        : action.transactionHash
                                                 }
                                                 network={network}
                                             />

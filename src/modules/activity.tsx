@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import fromnow from "fromnow"
 
-interface CollectionActionProps {
+interface ActivityProps {
     tokenId: string
     fromAddress: string
     toAddress: string
@@ -12,12 +12,27 @@ interface CollectionActionProps {
     network: string
 }
 
-const CollectionAction = (props: CollectionActionProps) => {
+const Activity = (props: ActivityProps) => {
+    const [exploderUrl, setExploderUrl] = useState("")
     const [price, setPrice] = useState("")
     const [actionType, setActionType] = useState("")
+    const [fromNow, setFromNow] = useState("")
 
     useEffect(() => {
         if (props.value.rawValue != undefined) {
+            const getExploderUrl = () => {
+                let domain = ""
+                switch (props.network) {
+                    case "Ethereum":
+                        domain = "etherscan.io"
+                        break
+                    case "Goerli":
+                        domain = "goerli.etherscan.io"
+                        break
+                }
+                setExploderUrl("https://" + domain + "/tx/" + props.transactionHash)
+            }
+
             const getPrice = () => {
                 const value = props.value.rawValue.value.toString()
                 let price = ""
@@ -48,28 +63,44 @@ const CollectionAction = (props: CollectionActionProps) => {
             }
 
             const getActionType = () => {
-                if (props.value.rawValue.value.toString().length != 1) {
-                    setActionType("Sale")
+                console.log(props.fromAddress)
+                if (props.fromAddress == "0x0000000000000000000000000000000000000000") {
+                    setActionType("Minted")
+                } else if (props.value.rawValue.value.toString().length == 1) {
+                    setActionType("Transfer")
                 } else {
-                    if (props.fromAddress == "0x0000000000000000000000000000000000000000") {
-                        setActionType("Minted")
+                    setActionType("Sale")
+                }
+            }
+
+            const getFromNow = () => {
+                const timeByFromNow = fromnow(props.blockTimestamp)
+                if (timeByFromNow == "just now") {
+                    setFromNow(timeByFromNow)
+                } else {
+                    if (timeByFromNow.includes(",")) {
+                        setFromNow(timeByFromNow.split(",")[0] + " ago")
                     } else {
-                        setActionType("Transfer")
+                        setFromNow(timeByFromNow + " ago")
                     }
                 }
             }
 
+            getExploderUrl()
             getPrice()
             getActionType()
+            getFromNow()
         }
-    }, [props.value.rawValue, props.fromAddress])
+    }, [props])
 
     return (
         <tr className="action-container">
             <td className="action">{actionType}</td>
-            <td className="item">
-                <a href=""> #{props.tokenId}</a>
-            </td>
+            {props.tokenId != "" && (
+                <td className="item">
+                    <a href=""> #{props.tokenId}</a>
+                </td>
+            )}
             <td className="price">{price}</td>
             <td className="quantity">{props.quantity}</td>
             <td className="from">
@@ -79,14 +110,12 @@ const CollectionAction = (props: CollectionActionProps) => {
                 <a href="">{props.toAddress}</a>
             </td>
             <td className="time">
-                <a href="">
-                    {fromnow(props.blockTimestamp) == "just now"
-                        ? "just now"
-                        : `${fromnow(props.blockTimestamp)} ago`}
+                <a href={exploderUrl} target="_blank" rel="noopener noreferrer">
+                    {fromNow}
                 </a>
             </td>
         </tr>
     )
 }
 
-export default CollectionAction
+export default Activity
