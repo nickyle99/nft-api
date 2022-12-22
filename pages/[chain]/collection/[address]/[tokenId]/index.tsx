@@ -18,6 +18,7 @@ const NftDetailPage: NextPage = () => {
     const [tokenId, setTokenId] = useState("")
     const [collectionName, setCollectionName] = useState("")
     const [collectionPageUrl, setCollectionPageUrl] = useState("")
+    const [ownerProfileUrl, setOwnerProfileUrl] = useState("")
     let owner: any, setOwner: any
     ;[owner, setOwner] = useState({})
     let metadata: any, setMetadata: any
@@ -26,10 +27,11 @@ const NftDetailPage: NextPage = () => {
     ;[attributes, setAttributes] = useState([])
     let activity: any[], setActivity: any
     ;[activity, setActivity] = useState([])
+    const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
         const pathname = window.location.pathname
-        switch (pathname.split("/")[2]) {
+        switch (pathname.split("/")[1]) {
             case "ethereum":
                 setChain(EvmChain.ETHEREUM)
                 setNetwork("Ethereum")
@@ -59,7 +61,7 @@ const NftDetailPage: NextPage = () => {
                     tokenId: tokenId,
                 })
 
-                setMetadata(response?.result.metadata)
+                setMetadata(response?.result.metadata ?? {})
                 setCollectionName(response?.result.name ?? "")
                 setOwner(response?.result.ownerOf ?? {})
             }
@@ -79,9 +81,9 @@ const NftDetailPage: NextPage = () => {
     }, [chain, address, tokenId, setMetadata, setOwner, setActivity])
 
     useEffect(() => {
-        if (metadata.name != undefined) {
+        if (metadata?.name != undefined) {
             const getAttributes = async () => {
-                let attributeList = metadata.attributes
+                let attributeList = metadata.attributes ?? []
                 for (let i = 0; i < attributeList.length; i++) {
                     const totalItemsSameTrait = await Moralis.EvmApi.nft.searchNFTs({
                         q: attributeList[i].trait_type,
@@ -110,30 +112,59 @@ const NftDetailPage: NextPage = () => {
         }
     }, [metadata, chain, address, setAttributes])
 
+    useEffect(() => {
+        if (owner._value != undefined) {
+            const pathname = window.location.pathname
+            const origin = window.location.origin
+            setOwnerProfileUrl(origin + "/" + pathname.split("/")[1] + "/profile/" + owner._value)
+        }
+    }, [owner])
+
+    const refreshMetadata = async () => {
+        setRefreshing(true)
+        await Moralis.EvmApi.nft.reSyncMetadata({
+            address: address,
+            tokenId: tokenId,
+            chain: chain,
+        })
+        setTimeout(() => {
+            setRefreshing(false)
+        }, 5000)
+    }
+
     return (
         <div className="page">
             <div className="nft-detail-container">
                 <div className="metadata-container">
                     <div className="left">
                         <div className="image">
-                            <Image src={metadata.image} alt="" fill></Image>
+                            <Image src={metadata?.image ?? ""} alt="" fill></Image>
                         </div>
                     </div>
                     <div className="right">
-                        <div className="collection-name">
-                            <a href={collectionPageUrl}>{collectionName}</a>
-                        </div>
-                        <div className="nft-name">
-                            <p>{metadata.name}</p>
+                        <div className="name-section">
+                            <div className="text">
+                                <div className="collection-name">
+                                    <a href={collectionPageUrl}>{collectionName}</a>
+                                </div>
+                                <div className="nft-name">
+                                    <p>{metadata?.name}</p>
+                                </div>
+                            </div>
+                            <div className="refresh-metadata">
+                                <button onClick={refreshMetadata} disabled={refreshing}>
+                                    Refresh metadata
+                                </button>
+                            </div>
                         </div>
                         <div className="owner">
                             <p>
-                                Owned by <a href="">{owner._value}</a>
+                                Owned by <a href={ownerProfileUrl}>{owner._value}</a>
                             </p>
                         </div>
                         <div className="description">
                             <h1>Description</h1>
-                            <p>{metadata.description}</p>
+                            <p>{metadata?.description}</p>
                         </div>
                         <div className="attributes-text">
                             <p>Properties:</p>
@@ -203,6 +234,7 @@ const NftDetailPage: NextPage = () => {
                                                     : action.transactionHash
                                             }
                                             network={network}
+                                            collectionAddress={address}
                                         />
                                     )
                                 })}

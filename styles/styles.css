@@ -18,13 +18,14 @@
   --color-grey-5: #2a2e35;
   --color-grey-6: #12181b;
   --color-link: rgb(32, 129, 226);
+  --color-danger: #a91919;
   --br-sm-2: 14px;
   --box-shadow-1: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
 .page {
   margin-top: -15px;
-  min-height: 1500px;
+  min-height: 1000px;
   background-color: var(--color-white);
 }
 
@@ -54,46 +55,72 @@
   font-weight: bold;
 }
 
-.body {
-  margin: 30px 0px 15px 0px;
+.tab-bar {
+  background-color: #000000;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
 }
-.body .active {
-  text-decoration: underline;
+.tab-bar .active {
+  background-color: #ffffff;
+  color: #000000;
 }
-.body span {
-  margin-right: 15px;
+.tab-bar span {
+  padding: 10px 20px 10px 20px;
   font-size: 25px;
   font-weight: 700;
   cursor: pointer;
+  border-radius: 5px;
 }
-.body .container-fluid {
+
+.body {
+  margin: 30px 0px 15px 0px;
+}
+
+.container-fluid {
   margin-top: 15px;
   position: relative;
 }
-.body .container-fluid .search {
+.container-fluid .search {
   margin-top: 10px;
 }
-.body .container-fluid .search input {
+.container-fluid .search input {
   width: 50%;
   height: 45px;
   font-size: 30px;
   margin-right: 15px;
   border-radius: 5px;
 }
-.body .container-fluid .search button {
+.container-fluid .search button {
   margin-right: 10px;
   height: 45px;
   font-size: 30px;
   padding: 5px;
   border-radius: 5px;
+  cursor: pointer;
 }
-.body .container-fluid .item-num {
+.container-fluid .danger ::-moz-placeholder {
+  color: var(--color-danger);
+  opacity: 0.5;
+}
+.container-fluid .danger :-ms-input-placeholder {
+  color: var(--color-danger);
+  opacity: 0.5;
+}
+.container-fluid .danger ::placeholder {
+  color: var(--color-danger);
+  opacity: 0.5;
+}
+.container-fluid .item-num {
   position: absolute;
   right: 20px;
   font-size: 25px;
   font-weight: bold;
 }
-.body .container-fluid .nft-list {
+.container-fluid .nft-list {
   margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -101,7 +128,7 @@
   grid-gap: 15px;
   grid-auto-flow: dense;
 }
-.body .container-fluid .nft-list .nft-container {
+.container-fluid .nft-list .nft-container {
   width: 300px;
   height: 350px;
   border-width: 2px;
@@ -109,14 +136,21 @@
   border-color: #000000;
   cursor: pointer;
 }
-.body .container-fluid .nft-list .nft-container .image-container {
+.container-fluid .nft-list .nft-container .image-container {
   height: 300px;
   position: relative;
   background-color: #000000;
 }
-.body .container-fluid .nft-list .nft-container .name {
-  padding: 10px;
+.container-fluid .nft-list .nft-container .name {
   font-size: 25px;
+  width: 300px;
+  overflow: hidden;
+  height: 50px;
+  line-height: 50px;
+}
+.container-fluid .nft-list .nft-container .name h3 {
+  margin: auto;
+  text-align: center;
 }
 
 .activity-container {
@@ -150,25 +184,49 @@
   text-decoration: underline;
 }
 .activity-container .action-container .action {
-  width: 6%;
+  width: 7.5%;
 }
 .activity-container .action-container .item {
-  width: 6%;
+  width: 7.5%;
 }
 .activity-container .action-container .price {
-  width: 7%;
+  width: 10%;
+}
+.activity-container .action-container .price p {
+  display: flex;
+}
+.activity-container .action-container .price p span {
+  overflow: hidden;
+  width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
 }
 .activity-container .action-container .quantity {
-  width: 7%;
+  width: 10%;
 }
 .activity-container .action-container .from {
-  width: 30.5%;
+  width: 25%;
+}
+.activity-container .action-container .from a {
+  overflow: hidden;
+  width: 400px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
 }
 .activity-container .action-container .to {
-  width: 30.5%;
+  width: 25%;
+}
+.activity-container .action-container .to a {
+  overflow: hidden;
+  width: 400px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
 }
 .activity-container .action-container .time {
-  width: 13%;
+  width: 15%;
 }
 .activity-container th {
   font-size: 30px;
@@ -190,15 +248,38 @@
   width: 50%;
   padding-left: 50px;
 }
-.metadata-container .right .collection-name {
+.metadata-container .right .name-section {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+.metadata-container .right .name-section .collection-name {
   font-size: 35px;
   text-decoration: underline;
   color: var(--color-link);
 }
-.metadata-container .right .nft-name {
+.metadata-container .right .name-section .nft-name {
   margin-top: 5px;
   font-size: 42px;
   font-weight: bold;
+}
+.metadata-container .right .name-section .refresh-metadata {
+  right: 0;
+  position: absolute;
+}
+.metadata-container .right .name-section .refresh-metadata button {
+  color: white;
+  background-color: var(--color-link);
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.metadata-container .right .name-section .refresh-metadata button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .metadata-container .right .owner {
   margin-top: 10px;
@@ -247,7 +328,7 @@
   font-size: 23px;
   font-weight: bold;
   color: var(--color-link);
-  padding: 5px;
+  padding: 5px 0 5px 0;
 }
 .metadata-container .right .attributes .attribute .value {
   text-align: center;
@@ -265,6 +346,77 @@
   padding: 50px 0 50px 0;
 }
 
+.address-container {
+  padding-top: 80px;
+  padding-bottom: 25px;
+  display: flex;
+}
+.address-container .text {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 30px;
+  color: var(--color-link);
+  text-decoration: underline;
+}
+.address-container .button {
+  margin-left: 15px;
+}
+.address-container .button button {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 3px;
+  border-radius: 5px;
+  border-width: 3px;
+  cursor: pointer;
+}
+
 .danger {
-  color: #a91919;
+  color: var(--color-danger);
+}
+
+.address-filter-container {
+  padding-top: 350px;
+  margin: auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.address-filter-container .search {
+  display: flex;
+}
+.address-filter-container .search input {
+  width: 500px;
+  font-size: 20px;
+  padding: 5px;
+  border-color: var(--color-link);
+  border-radius: 5px;
+}
+.address-filter-container .search .button {
+  color: var(--color-link);
+}
+.address-filter-container .search .button button {
+  cursor: pointer;
+  color: var(--color-link);
+  border-color: var(--color-link);
+  margin-left: 20px;
+  font-size: 22px;
+  padding: 3px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.address-filter-container .radio {
+  margin-top: 10px;
+  display: flex;
+}
+.address-filter-container .radio .input {
+  margin-top: 2px;
+}
+.address-filter-container .radio input {
+  width: 20px;
+  height: 20px;
+}
+.address-filter-container .radio label {
+  margin: 0 15px 0 5px;
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }/*# sourceMappingURL=styles.css.map */

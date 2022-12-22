@@ -20,15 +20,15 @@ const CollectionPage: NextPage = () => {
     const [filterItemNumber, setFilterItemNumber] = useState(0)
     // const [createdTime, setCreatedTime] = useState("")
     let nfts: any[], setNfts: any
-    ;[nfts, setNfts] = useState([{}])
+    ;[nfts, setNfts] = useState([])
     let activity: any[], setActivity: any
-    ;[activity, setActivity] = useState([{}])
-    const [attributeInput, setAttributeInput] = useState("")
+    ;[activity, setActivity] = useState([])
+    const [filterInput, setFilterInput] = useState("")
     const [tabBar, setTabBar] = useState("Items")
 
     useEffect(() => {
         const pathname = window.location.pathname
-        switch (pathname.split("/")[2]) {
+        switch (pathname.split("/")[1]) {
             case "ethereum":
                 setChain(EvmChain.ETHEREUM)
                 setNetwork("Ethereum")
@@ -57,7 +57,7 @@ const CollectionPage: NextPage = () => {
                     address: address,
                     chain: chain,
                 })
-                setName(response!.raw.name)
+                setName(response?.raw.name ?? "")
                 // setCreatedTime(response!.raw.synced_at ? response!.raw.synced_at : "")
             }
             const getActivity = async () => {
@@ -74,14 +74,14 @@ const CollectionPage: NextPage = () => {
         }
     }, [chain, address, setNfts, setActivity])
 
-    const changeAttributeInput = (e: any) => {
-        setAttributeInput(e.target.value)
+    const changeFilterInput = (e: any) => {
+        setFilterInput(e.target.value)
     }
 
-    const filter = async (option: string) => {
+    const filter = async () => {
         const response = await Moralis.EvmApi.nft.searchNFTs({
-            q: attributeInput,
-            filter: option == "name" ? "name" : "attributes",
+            q: filterInput,
+            filter: "name,attributes",
             chain: chain,
             addresses: [address],
         })
@@ -132,23 +132,13 @@ const CollectionPage: NextPage = () => {
                                 <input
                                     type="text"
                                     placeholder="Search by name or attribute"
-                                    onChange={changeAttributeInput}
+                                    onChange={changeFilterInput}
                                 />
                                 <button
-                                    onClick={() => {
-                                        filter("name")
-                                    }}
-                                    disabled={attributeInput == "" ? true : false}
+                                    onClick={filter}
+                                    disabled={filterInput == "" ? true : false}
                                 >
-                                    Search by name
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        filter("attributes")
-                                    }}
-                                    disabled={attributeInput == "" ? true : false}
-                                >
-                                    Search by attribute
+                                    Search
                                 </button>
                             </div>
                             <div className="item-num">
@@ -225,6 +215,7 @@ const CollectionPage: NextPage = () => {
                                                         : action.transactionHash
                                                 }
                                                 network={network}
+                                                collectionAddress={address}
                                             />
                                         )
                                     })}

@@ -10,6 +10,7 @@ interface ActivityProps {
     blockTimestamp: any
     transactionHash: string
     network: string
+    collectionAddress: string
 }
 
 const Activity = (props: ActivityProps) => {
@@ -45,25 +46,21 @@ const Activity = (props: ActivityProps) => {
                     for (let i = 0; i < 36 - length; i++) {
                         price += "0"
                     }
-                    price += firstNumber + " ETH"
+                    price += firstNumber
                 } else if (length > 33 && length <= 36) {
                     price = "0,"
                     for (let i = 0; i < 36 - length; i++) {
                         price += "0"
                     }
-                    price += value.slice(0, 3 - (36 - length)) + " ETH"
+                    price += value.slice(0, 3 - (36 - length))
                 } else {
                     price =
-                        value.slice(0, length - 36) +
-                        "," +
-                        value.slice(length - 36, length - 33) +
-                        " ETH"
+                        value.slice(0, length - 36) + "," + value.slice(length - 36, length - 33)
                 }
                 setPrice(price)
             }
 
             const getActionType = () => {
-                console.log(props.fromAddress)
                 if (props.fromAddress == "0x0000000000000000000000000000000000000000") {
                     setActionType("Minted")
                 } else if (props.value.rawValue.value.toString().length == 1) {
@@ -98,16 +95,55 @@ const Activity = (props: ActivityProps) => {
             <td className="action">{actionType}</td>
             {props.tokenId != "" && (
                 <td className="item">
-                    <a href=""> #{props.tokenId}</a>
+                    <a
+                        href={
+                            window.location.origin +
+                            "/" +
+                            props.network.toLowerCase() +
+                            "/collection/" +
+                            props.collectionAddress +
+                            "/" +
+                            props.tokenId
+                        }
+                    >
+                        #{props.tokenId}
+                    </a>
                 </td>
             )}
-            <td className="price">{price}</td>
-            <td className="quantity">{props.quantity}</td>
+            <td className="price">
+                <p>
+                    <span>{price}</span>
+                    {price != "" && " ETH"}
+                </p>
+            </td>
+            <td className="quantity">
+                <p>{props.quantity}</p>
+            </td>
             <td className="from">
-                <a href="">{props.fromAddress}</a>
+                <a
+                    href={
+                        window.location.origin +
+                        "/" +
+                        props.network.toLowerCase() +
+                        "/profile/" +
+                        props.fromAddress
+                    }
+                >
+                    {props.fromAddress}
+                </a>
             </td>
             <td className="to">
-                <a href="">{props.toAddress}</a>
+                <a
+                    href={
+                        window.location.origin +
+                        "/" +
+                        props.network.toLowerCase() +
+                        "/profile/" +
+                        props.toAddress
+                    }
+                >
+                    {props.toAddress}
+                </a>
             </td>
             <td className="time">
                 <a href={exploderUrl} target="_blank" rel="noopener noreferrer">
