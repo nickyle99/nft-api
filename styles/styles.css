@@ -157,6 +157,10 @@
   position: relative;
   background-color: #000000;
 }
+.container-fluid .nft-list .nft-container .image-container .video {
+  width: 300px;
+  height: 300px;
+}
 .container-fluid .nft-list .nft-container .name {
   font-size: 25px;
   width: 300px;
@@ -204,6 +208,13 @@
 }
 .activity-container .action-container .item {
   width: 7.5%;
+}
+.activity-container .action-container .item a {
+  overflow: hidden;
+  width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
 }
 .activity-container .action-container .price {
   width: 10%;
@@ -254,6 +265,11 @@
 }
 .metadata-container .left {
   width: 50%;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+.metadata-container .left .video {
+  width: 100%;
   aspect-ratio: 1/1;
 }
 .metadata-container .left .image {

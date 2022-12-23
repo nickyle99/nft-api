@@ -62,7 +62,6 @@ const ProfilePage: NextPage = () => {
                     chain: chain,
                 })
                 setActivity(response.result)
-                console.log(response.result)
             }
 
             getNfts()

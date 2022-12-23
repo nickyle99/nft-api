@@ -139,9 +139,41 @@ const NftDetailPage: NextPage = () => {
                 <Header />
                 <div className="metadata-container">
                     <div className="left">
-                        <div className="image">
-                            <Image src={metadata?.image ?? ""} alt="" fill></Image>
-                        </div>
+                        {metadata?.image != undefined && (
+                            <div>
+                                {metadata.image.slice(metadata.image.length - 4) == ".mp4" ? (
+                                    <video className="video" autoPlay muted loop controls>
+                                        <source
+                                            src={
+                                                metadata.image.split("/")[0] == "ipfs:"
+                                                    ? metadata.image.split("/")[2] == "ipfs"
+                                                        ? "https://ipfs.io/" +
+                                                          metadata.image.slice(7)
+                                                        : "https://ipfs.io/ipfs/" +
+                                                          metadata.image.slice(7)
+                                                    : metadata.image
+                                            }
+                                        />
+                                    </video>
+                                ) : (
+                                    <div className="image">
+                                        <Image
+                                            src={
+                                                metadata.image.split("/")[0] == "ipfs:"
+                                                    ? metadata.image.split("/")[2] == "ipfs"
+                                                        ? "https://ipfs.io/" +
+                                                          metadata.image.slice(7)
+                                                        : "https://ipfs.io/ipfs/" +
+                                                          metadata.image.slice(7)
+                                                    : metadata.image
+                                            }
+                                            alt=""
+                                            fill
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                     <div className="right">
                         <div className="name-section">

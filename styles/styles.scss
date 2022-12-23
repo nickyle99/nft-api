@@ -145,6 +145,10 @@
                 height: 300px;
                 position: relative;
                 background-color: #000000;
+                .video {
+                    width: 300px;
+                    height: 300px;
+                }
             }
             .name {
                 font-size: 25px;
@@ -194,6 +198,13 @@
         }
         .item {
             width: 7.5%;
+            a {
+                overflow: hidden;
+                width: 100px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                display: block;
+            }
         }
         .price {
             width: 10%;
@@ -246,6 +257,11 @@
     .left {
         width: 50%;
         aspect-ratio: 1/1;
+        position: relative;
+        .video {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+        }
         .image {
             aspect-ratio: 1 / 1;
             position: relative;
