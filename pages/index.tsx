@@ -1,12 +1,10 @@
 import Head from "next/head"
 import Image from "next/image"
-import { Inter } from "@next/font/google"
-import styles from "../styles/Home.module.css"
-import { NextPage } from "next"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Moralis from "moralis"
 import { EvmChain } from "@moralisweb3/common-evm-utils"
 import config from "../config.json"
+import Header from "../src/modules/header"
 
 // active moralis module
 Moralis.start({
@@ -50,6 +48,7 @@ export default function Home() {
             </Head>
             <main className="page">
                 <div className="container">
+                    <Header />
                     <div className="address-filter-container">
                         <div className="search">
                             <div className="input">

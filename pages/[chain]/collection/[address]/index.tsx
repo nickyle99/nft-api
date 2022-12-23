@@ -5,6 +5,7 @@ import { EvmChain } from "@moralisweb3/common-evm-utils"
 import config from "../../../../config.json"
 import NftItem from "../../../../src/modules/nftItem"
 import Activity from "../../../../src/modules/activity"
+import Header from "../../../../src/modules/header"
 
 // active moralis module
 Moralis.start({
@@ -100,6 +101,7 @@ const CollectionPage: NextPage = () => {
     return (
         <div className="page">
             <div className="container">
+                <Header />
                 <div className="general-info">
                     <div className="collection-name">{name}</div>
                     <div className="collection-details">

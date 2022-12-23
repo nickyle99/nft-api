@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Moralis from "moralis"
 import { EvmChain } from "@moralisweb3/common-evm-utils"
 import config from "../../../../config.json"
+import Header from "../../../../src/modules/header"
 import NftItem from "../../../../src/modules/nftItem"
 import Activity from "../../../../src/modules/activity"
 
@@ -86,6 +87,7 @@ const ProfilePage: NextPage = () => {
     return (
         <div className="page">
             <div className="container">
+                <Header />
                 <div className="address-container">
                     <div className="text">
                         <a href={exploderUrl} target="_blank" rel="noopener noreferrer">
@@ -96,7 +98,6 @@ const ProfilePage: NextPage = () => {
                         <button onClick={copyAddress}>Copy</button>
                     </div>
                 </div>
-
                 <div className="tab-bar">
                     <span className={tabBar == "Collected" ? "active" : ""} onClick={selectTabBar}>
                         Collected
@@ -195,7 +196,6 @@ const ProfilePage: NextPage = () => {
                                             }
                                             network={network}
                                             collectionAddress={action.tokenAddress._value}
-                                            name={action.metadata?.name ?? ""}
                                         />
                                     )
                                 })}
