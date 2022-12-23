@@ -7,8 +7,8 @@ const Header = () => {
 
     return (
         <div className="header">
-            <div className="home-container" onClick={goToHome}>
-                <div className="image">
+            <div className="home-container">
+                <div className="image" onClick={goToHome}>
                     <Image
                         src="/vercel.svg"
                         alt="Vercel Logo"
