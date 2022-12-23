@@ -34,14 +34,14 @@
   color: white;
 }
 .header .home-container {
-  top: -35px;
+  top: 15px;
   position: relative;
   display: flex;
   cursor: pointer;
 }
 .header .home-container .image {
   width: 180px;
-  height: 180px;
+  height: 90px;
   position: relative;
 }
 
