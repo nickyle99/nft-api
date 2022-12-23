@@ -26,6 +26,7 @@ export default function Home() {
         const response = await Moralis.EvmApi.nft.getContractNFTs({
             address: address,
             chain: ethChosen ? EvmChain.ETHEREUM : EvmChain.GOERLI,
+            limit: 1,
         })
 
         if (response.pagination.total) {
