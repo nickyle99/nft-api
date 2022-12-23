@@ -9,10 +9,13 @@ const Header = () => {
         <div className="header">
             <div className="home-container" onClick={goToHome}>
                 <div className="image">
-                    <Image src="/../public/favicon.ico" alt="" fill></Image>
-                </div>
-                <div className="text">
-                    <p>HOME</p>
+                    <Image
+                        src="/vercel.svg"
+                        alt="Vercel Logo"
+                        className="vercelLogo"
+                        fill
+                        priority
+                    />
                 </div>
             </div>
         </div>

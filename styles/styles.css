@@ -34,24 +34,15 @@
   color: white;
 }
 .header .home-container {
-  top: 30px;
+  top: -35px;
   position: relative;
   display: flex;
   cursor: pointer;
 }
 .header .home-container .image {
-  width: 45px;
-  height: 45px;
+  width: 180px;
+  height: 180px;
   position: relative;
-}
-.header .home-container .text {
-  margin-top: -9px;
-  margin-left: 10px;
-}
-.header .home-container .text p {
-  color: black;
-  font-size: 55px;
-  font-weight: 900;
 }
 
 .container {

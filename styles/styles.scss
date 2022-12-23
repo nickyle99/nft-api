@@ -33,23 +33,14 @@
     height: 100px;
     color: white;
     .home-container {
-        top: 30px;
+        top: -35px;
         position: relative;
         display: flex;
         cursor: pointer;
         .image {
-            width: 45px;
-            height: 45px;
+            width: 180px;
+            height: 180px;
             position: relative;
-        }
-        .text {
-            margin-top: -9px;
-            margin-left: 10px;
-            p {
-                color: black;
-                font-size: 55px;
-                font-weight: 900;
-            }
         }
     }
 }

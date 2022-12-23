@@ -1,5 +1,4 @@
 import Head from "next/head"
-import Image from "next/image"
 import { useState } from "react"
 import Moralis from "moralis"
 import { EvmChain } from "@moralisweb3/common-evm-utils"
