@@ -104,6 +104,7 @@ const CollectionPage: NextPage = () => {
             <Head>
                 <title>Marketplace Demo</title>
                 <meta name="description" content="This site to test NFT APIs" />
+                <meta name="image" content="https://i.imgur.com/Biu27h2.png" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
